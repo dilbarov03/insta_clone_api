@@ -2,23 +2,23 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import cloudinary 
+import os
 
-
-SQLALCHEMY_DATABASE_URL = 'postgresql://qismrlig:gPhSLgCSgXo8qFhBok045D6klCRw5NWp@queenie.db.elephantsql.com/qismrlig'
+SQLALCHEMY_DATABASE_URL = os.environ.get("CLOUDINARY_NAME")
  
 engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={})
 
 #SQLALCHEMY_DATABASE_URL = "sqlite:///./mydatabase2.db"
 
 cloudinary.config(
-    cloud_name="progers",
-    api_key="385595836119974",
-    api_secret="VqTojQ56WOkvRsr2GFOByEDWgTk"
+    cloud_name=os.environ.get("CLOUDINARY_NAME"),
+    api_key=os.environ.get("CLOUDINARY_API_KEY"),
+    api_secret=os.environ.get("CLOUDINARY_API_SECRET")
 )
 
-'''engine = create_engine(
-    SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
-)'''
+# engine = create_engine(
+#     SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
+# )
 
 
 SessionLocal = sessionmaker(bind=engine, autocommit=False, autoflush=False)
